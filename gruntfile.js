@@ -3,23 +3,27 @@ module.exports = function(grunt) {
 	require('load-grunt-tasks')(grunt);
 
 	grunt.config.init({
+	  clean: ['.tmp', 'dist'],
 	  useminPrepare: {
-	      html: 'index.html',
+	      html: ['index.html','index2.html'],
 	      options: {
 	        dest: 'dist'
 	      }
 	  },
 	  usemin:{
-	  	html:['dist/index.html']
+	  	html:['dist/index.html','dist/index2.html']
 	  },
 	  copy:{
 	    html: {
-	    	src: './index.html', dest: 'dist/index.html'
+            src: ['**/*.html','!**/node_modules/**','!**/.tmp/**'],
+            expand: true,
+            dest: 'dist',
 	    }
 	  }
 	});
 
 	grunt.registerTask('default',[
+		'clean',
 		'copy:html',
 		'useminPrepare',
 		'concat',
